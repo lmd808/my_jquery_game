@@ -55,24 +55,10 @@ Character.prototype.counterAttack = function(Obj) {
 function initCharacters() {
 	// these will all follow the object templeate of the character function
 	// new desgnanted a new instance
-	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', '../assets/images/michael.jpg');
-	var jason = new Character('Jason Vorhees', 150, 50, 30, "Just won't die, ", '../assets/images/jason.jpg');
-	var ghostFace = new Character(
-		'Ghostface',
-		200,
-		15,
-		2,
-		'Has knife and will just keep walking',
-		'../assets/images/ghostface.jpg'
-	);
-	var freddy = new Character(
-		'Freddie Kreuger',
-		60,
-		30,
-		12,
-		'Enters your Dreams just for Fun',
-		'../assets/images/freddy.jpg'
-	);
+	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', $('#michael'));
+	var jason = new Character('Jason Vorhees', 150, 50, 30, "Just won't die, ", $('#jason'));
+	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Has knife and will just keep walking', $('#ghostFace'));
+	var freddy = new Character('Freddie Kreuger', 60, 30, 12, 'Enters your Dreams just for Fun', $('#freddy'));
 	// declared in global variables as an empty array .push adds the characters to the array
 	charaterArray.push(michael, jason, ghostFace, freddy);
 }
