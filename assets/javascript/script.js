@@ -1,192 +1,97 @@
-function clickTheKiller() {
-	// micahael's click functions
-	$('#michael').on('click', function() {
-		$('#freddy').remove();
-		$('#ghostFace').remove();
-		$('#jason').remove();
-		$('#fallInlineEnemies1').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-		$('#freddy').addClass('image');
-		$('#fallInlineEnemies2').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-		$('#ghostFace').addClass('image');
-		$('#fallInlineEnemies3').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-		$('#jason').addClass('image');
+// my variables
+var baseAttack = 0; // original attack strength
+// here we store the current character being played as an object
+var player;
+// here we store the current enemy selected as an object
+var Enemy;
+// array that will store the character objects
+var characterArray = [];
+// i'm going to use this to mark if we selected a player character yet or nah
+var playerSelected = false;
+// use to mark if we selected a player character yet or nah
+var EnemySelected = false;
 
-		//michael vs freddy
-		$('#freddy').on('click', function() {
-			$('#michael').remove();
-			$('#DeadInlineEnemies1').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-			$('#michael').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#freddy').remove();
-			$('#DeadInlineEnemies3').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-			$('#freddy').addClass('image');
-		});
-		// michael vs ghostface
-		$('#ghostFace').on('click', function() {
-			$('#michael').remove();
-			$('#DeadInlineEnemies1').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-			$('#michael').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#ghostFace').remove();
-			$('#DeadInlineEnemies3').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-			$('#ghostFace').addClass('image');
-		});
-		// michael vs jason
-		$('#jason').on('click', function() {
-			$('#michael').remove();
-			$('#DeadInlineEnemies1').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-			$('#michael').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#jason').remove();
-			$('#DeadInlineEnemies3').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-			$('#jason').addClass('image');
-		});
-	});
-
-	// jason click functions
-	$('#jason').on('click', function() {
-		// removes characters from star line
-		$('#freddy').remove();
-		$('#ghostFace').remove();
-		$('#michael').remove();
-		// loads characters in enemy line
-		$('#fallInlineEnemies1').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-		$('#freddy').addClass('image');
-		$('#fallInlineEnemies2').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-		$('#ghostFace').addClass('image');
-		$('#fallInlineEnemies3').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-		$('#michael').addClass('image');
-		// dead enemies battle secion for jason
-		$('#freddy').on('click', function() {
-			$('#jason').remove();
-			$('#DeadInlineEnemies1').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-			$('#jason').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#freddy').remove();
-			$('#DeadInlineEnemies3').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-			$('#freddy').addClass('image');
-		});
-		$('#ghostFace').on('click', function() {
-			$('#jason').remove();
-			$('#DeadInlineEnemies1').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-			$('#jason').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#ghostFace').remove();
-			$('#DeadInlineEnemies3').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-			$('#ghostFace').addClass('image');
-		});
-		$('#michael').on('click', function() {
-			$('#jason').remove();
-			$('#DeadInlineEnemies1').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-			$('#jason').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#michael').remove();
-			$('#DeadInlineEnemies3').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-			$('#michael').addClass('image');
-		});
-	});
-
-	// freddy click functions
-	$('#freddy').on('click', function() {
-		// removes rpg character from starting line
-		$('#michael').remove();
-		$('#ghostFace').remove();
-		$('#jason').remove();
-		// moves them to the enemy line
-		$('#fallInlineEnemies1').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-		$('#michael').addClass('image');
-		$('#fallInlineEnemies2').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-		$('#ghostFace').addClass('image');
-		$('#fallInlineEnemies3').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-		$('#jason').addClass('image');
-		// freddy vs michael
-		$('#michael').on('click', function() {
-			$('#freddy').remove();
-			$('#DeadInlineEnemies1').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-			$('#freddy').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#michael').remove();
-			$('#DeadInlineEnemies3').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-			$('#michael').addClass('image');
-		});
-		// freddy vs ghostface
-		$('#ghostFace').on('click', function() {
-			$('#freddy').remove();
-			$('#DeadInlineEnemies1').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-			$('#freddy').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#ghostFace').remove();
-			$('#DeadInlineEnemies3').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-			$('#ghostFace').addClass('image');
-		});
-		// freddy vs jason
-		$('#jason').on('click', function() {
-			$('#freddy').remove();
-			$('#DeadInlineEnemies1').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-			$('#freddy').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#jason').remove();
-			$('#DeadInlineEnemies3').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-			$('#jason').addClass('image');
-		});
-	});
-
-	// ghost face clicking function from chose player to battle
-	$('#ghostFace').on('click', function() {
-		// removes rpg characters from the star line
-		$('#freddy').remove();
-		$('#michael').remove();
-		$('#jason').remove();
-		// moves characters to the enemy line
-		$('#fallInlineEnemies1').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-		$('#freddy').addClass('image');
-		$('#fallInlineEnemies2').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-		$('#michael').addClass('image');
-		$('#fallInlineEnemies3').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-		$('#jason').addClass('image');
-		// ghostface vs freddy
-		$('#freddy').on('click', function() {
-			$('#ghostFace').remove();
-			$('#DeadInlineEnemies1').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-			$('#ghostFace').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#freddy').remove();
-			$('#DeadInlineEnemies3').append('<img id="freddy" src="assets/images/battle_icons/freddy.jpg">');
-			$('#freddy').addClass('image');
-		});
-		// ghost face vs michael
-		$('#michael').on('click', function() {
-			$('#ghostFace').remove();
-			$('#DeadInlineEnemies1').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-			$('#ghostFace').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#michael').remove();
-			$('#DeadInlineEnemies3').append('<img id="michael" src="assets/images/battle_icons/michael.jpg">');
-			$('#michael').addClass('image');
-		});
-		// ghostface vs jason
-		$('#jason').on('click', function() {
-			$('#ghostFace').remove();
-			$('#DeadInlineEnemies1').append('<img id="ghostFace" src="assets/images/battle_icons/ghostface.jpg">');
-			$('#ghostFace').addClass('image');
-			$('#DeadInlineEnemies2').append('<img id="vs" src="assets/images/battle_icons/vs.jpg">');
-			$('#vs').addClass('image');
-			$('#jason').remove();
-			$('#DeadInlineEnemies3').append('<img id="jason" src="assets/images/battle_icons/jason.jpg">');
-			$('#jason').addClass('image');
-		});
-	});
+// function to create characters (this I barrowed conceptually, but I do know how this function ... functions )
+// character creation template
+// we're using this function to create objects
+// later they're going to be put into my characterArray
+function Character(name, hp, ap, counter, skill, pic) {
+	this.name = name;
+	this.healthPoints = hp;
+	this.attackPower = ap;
+	this.counterAttackPower = counter;
+	this.skill = skill;
+	this.pic = pic;
 }
 
-clickTheKiller();
+// Increase the attack strength (this attack strength + original attack strength)
+// this function is an expansion of the function set above
+// my base attack variable has a value of 0
+// my attack power will vary based on the characters that I create off of the Character function above
+Character.prototype.increaseAttack = function() {
+	this.attackPower += baseAttack;
+};
+
+// this function is an expansion of the hcharacter function above
+// healthpoints decrease by the amount of attack power a character has
+Character.prototype.attack = function(Obj) {
+	Obj.healthPoints -= this.attackPower;
+	// this message will display in screen and the attack power and loss of health points
+	$('#msg').html('You attacked ' + Obj.name + 'for ' + this.attackPower + ' damage points.');
+	this.increaseAttack();
+};
+
+// this is the 'enemies' attack on the main character
+// Performs a counter attack
+Character.prototype.counterAttack = function(Obj) {
+	Obj.healthPoints -= this.counterAttackPower;
+	// this message will display in screen and the counterattack + loss of healthpoints
+	$('#msg').append('<br>' + this.name + ' counter attacked you for ' + this.counterAttackPower + ' damage points.');
+};
+
+// initializing new character ... they will follow the temlate of the character function above
+
+// Initialize all the characters
+function initCharacters() {
+	// these will all follow the object templeate of the character function
+	// new desgnanted a new instance
+	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', '../assets/images/michael.jpg');
+	var jason = new Character('Jason Vorhees', 150, 50, 30, "Just won't die, ", '../assets/images/jason.jpg');
+	var ghostFace = new Character(
+		'Ghostface',
+		200,
+		15,
+		2,
+		'Has knife and will just keep walking',
+		'../assets/images/ghostface.jpg'
+	);
+	var freddy = new Character(
+		'Freddie Kreuger',
+		60,
+		30,
+		12,
+		'Enters your Dreams just for Fun',
+		'../assets/images/freddy.jpg'
+	);
+	// declared in global variables as an empty array .push adds the characters to the array
+	charaterArray.push(michael, jason, ghostFace, freddy);
+}
+
+// function to check is the character is alive
+function isAlive(Obj) {
+	// if my characters health points are greater than zero log true
+	if (Obj.healthPoints > 0) {
+		return true;
+	}
+	// if less then 0 log false (she dead )
+	return false;
+}
+
+// Checks if the player has won
+function isWinner() {
+	// if there are no more characters left to battle in the character array and player heathpoints are greater than zero return true (they won!)
+	if (characterArray.length == 0 && player.healthPoints > 0) return true;
+	else
+		// else they died (lame )
+		return false;
+}
