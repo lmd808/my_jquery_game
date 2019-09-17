@@ -12,51 +12,55 @@
     <title>Serial Slashers the Game</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="firstScreen">
       <!-- this is me header row  -->
       <div class= "row justify-content-center" id= "header">
         <h1 id = "myHeading">Serial Slashers</h1> 
       </div>
       <!-- this is going to be the initial row where my characters are displayed -->
-      <div class="row">
-        <div class="col-sm-3 justify-content-center">
-          <span class="fallInlineEnemies justify-content-center" id="fallInlineEnemies1">              
-             <img src="assets/images/battle_icons/michael.jpg" alt="An Images of Michael Meyers" id="michael" class="image">
-          </span>
-        </div>
-        <div class="col-sm-3 justify-content-center">
-          <span class="fallInlineEnemies justify-content-center" id="fallInlineEnemies2">            
-            <img src="assets/images/battle_icons/jason.jpg" alt="An Images of Jason Vorheese" id="jason" class="image">   </span>
-        </div>
-        <div class="col-sm-3 justify-content-center">
-          <span class="fallInlineEnemies justify-content-center" id="fallInlineEnemies3">
-            <img src="assets/images/battle_icons/freddy.jpg" alt="An Image of Freddy Kreuger" id="freddy" class="image">       
-          </span>
-        </div>
-        <div class="col-sm-3 justify-content-center">
-            <span class="fallInlineEnemies justify-content-center" id="fallInlineEnemies4">
-              <img src="assets/images/battle_icons/ghostface.jpg" alt="An Image of Ghostface" id="ghostFace" class="image">                             
-            </span>          
+      <div class="row justify-content-center" id="pickPlayerRow">
+         
       </div>
+      <div class="row justify-content-center">PICK A PLAYER TO BEGIN THE GAME</div>
       </div>
       <!-- this is going to be the row where the fightng happens -->
-      <div class="row">
-        <div class="col-sm-4">
-          <span class="DeadInlineEnemies justify-content-center" id="DeadInlineEnemies1"></span>
-        </div>
-        <div class="col-sm-4">
-          <span class="DeadInlineEnemies justify-content-center" id="DeadInlineEnemies2"></span>
-        </div>
-        <div class="col-sm-4">
-          <span class="DeadInlineEnemies justify-content-center" id="DeadInlineEnemies3"></span>
-        </div>
+      <div class="row justify-content-center" id="enemiesLeft">
+        
       </div>
-      <!-- this row is going to be where I keep Score Information -->
-      <div class="row justify-content-center" id="buttondiv">
-              <button id="clickToAttack" type="button">Click Here to Attack</button>
+
+    </div>
+
+    <div class="container justify-content-center" id="secondScreen">
+      <div class="row justify-content-center">
+        <div class="col-sm-4 justify-content-center" >
+          <div class="row">
+            <div class="col" id="playerDiv"></div>
+          </div>
+          <div class="row">
+            <div class="col" id="playerHealthDiv"></div>
+          </div>
         </div>
+        <div class="col-sm-4 justify-content-center">
+          <button id="attackBtn" type="button"> 
+            <img src="assets/images/battle_icons/vs.jpg" width="200px" height="200px" alt="vs">
+          </button>
+        </div>
+        <div class="col-sm-4 justify-content-center">
+          <div class="row">
+            <div class="col" id="enemyDiv"></div>
+          </div>
+          <div class="row" id="enemyHealthDiv"></div>
+        </div>
+      </div>  
+
+       <!-- this row is going to be where I keep Score Information -->
+      <div class = "row justify-content-center" >
+        <h2 id="msg"></h2>
       </div>
-    
+
+    </div>
+
+
 
     </div>
 

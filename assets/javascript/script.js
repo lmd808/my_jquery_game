@@ -24,14 +24,6 @@ function Character(name, hp, ap, counter, skill, pic) {
 	this.pic = pic;
 }
 
-// Increase the attack strength (this attack strength + original attack strength)
-// this function is an expansion of the function set above
-// my base attack variable has a value of 0
-// my attack power will vary based on the characters that I create off of the Character function above
-Character.prototype.increaseAttack = function() {
-	this.attackPower += baseAttack;
-};
-
 // this function is an expansion of the hcharacter function above
 // healthpoints decrease by the amount of attack power a character has
 Character.prototype.attack = function(Obj) {
@@ -39,6 +31,40 @@ Character.prototype.attack = function(Obj) {
 	// this message will display in screen and the attack power and loss of health points
 	$('#msg').html('You attacked ' + Obj.name + 'for ' + this.attackPower + ' damage points.');
 	this.increaseAttack();
+};
+
+// initializing new character ... they will follow the temlate of the character function above
+function initCharacters() {
+	// these will all follow the object templeate of the character function
+	// new desgnanted a new instance
+	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', 'assets/images/battle_icons/michael.jpg');
+	var jason = new Character('Jason Vorhees', 150, 50, 30, "Just won't die, ", 'assets/images/battle_icons/jason.jpg');
+	var ghostFace = new Character(
+		'Ghostface',
+		200,
+		15,
+		2,
+		'Has knife and will just keep walking',
+		'assets/images/battle_icons/ghostface.jpg'
+	);
+	var freddy = new Character(
+		'Freddie Kreuger',
+		60,
+		30,
+		12,
+		'Enters your Dreams just for Fun',
+		'assets/images/battle_icons/freddy.jpg'
+	);
+	// declared in global variables as an empty array .push adds the characters to the array
+	characterArray.push(michael, jason, ghostFace, freddy);
+}
+
+// Increase the attack strength (this attack strength + original attack strength)
+// this function is an expansion of the function set above
+// my base attack variable has a value of 0
+// my attack power will vary based on the characters that I create off of the Character function above
+Character.prototype.increaseAttack = function() {
+	this.attackPower += baseAttack;
 };
 
 // this is the 'enemies' attack on the main character
@@ -49,18 +75,9 @@ Character.prototype.counterAttack = function(Obj) {
 	$('#msg').append('<br>' + this.name + ' counter attacked you for ' + this.counterAttackPower + ' damage points.');
 };
 
-// initializing new character ... they will follow the temlate of the character function above
-
-// Initialize all the characters
-function initCharacters() {
-	// these will all follow the object templeate of the character function
-	// new desgnanted a new instance
-	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', $('#michael'));
-	var jason = new Character('Jason Vorhees', 150, 50, 30, "Just won't die, ", $('#jason'));
-	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Has knife and will just keep walking', $('#ghostFace'));
-	var freddy = new Character('Freddie Kreuger', 60, 30, 12, 'Enters your Dreams just for Fun', $('#freddy'));
-	// declared in global variables as an empty array .push adds the characters to the array
-	charaterArray.push(michael, jason, ghostFace, freddy);
+// this sets the base attacke value based on the character selected
+function setBaseAttack(Obj) {
+	baseAttack = Obj.attackPower;
 }
 
 // function to check is the character is alive
@@ -81,3 +98,128 @@ function isWinner() {
 		// else they died (lame )
 		return false;
 }
+
+// here down is where i started t struggle
+
+// Create the character cards onscreen
+function characterCards(divID) {
+	$(divID).children().remove();
+	for (var i = 0; i < characterArray.length; i++) {
+		$(divID).append('<div />');
+		$(divID + ' div:last-child').addClass('card');
+		$(divID + ' div:last-child').append('<img />');
+		$(divID + ' img:last-child').attr('id', characterArray[i].name);
+		$(divID + ' img:last-child').attr('class', 'image');
+		$(divID + ' img:last-child').attr('src', characterArray[i].pic);
+		$(divID + ' img:last-child').attr('width', 150);
+		$(divID + ' img:last-child').addClass('img-thumbnail');
+		$(divID + ' div:last-child').append(characterArray[i].name + '<br>');
+		$(divID + ' div:last-child').append('HP: ' + characterArray[i].healthPoints);
+		$(divID + ' div:last-child').append();
+	}
+}
+
+// Update the characters pictures location on the screen (move them between divs)
+function updatePics(fromDivID, toDivID) {
+	$(fromDivID).children().remove();
+	for (var i = 0; i < characterArray.length; i++) {
+		$(toDivID).append('<img />');
+		$(toDivID + ' img:last-child').attr('id', characterArray[i].name);
+		$(toDivID + ' img:last-child').attr('src', characterArray[i].pic);
+		$(toDivID + ' img:last-child').addClass('img-thumbnail image');
+	}
+}
+
+// plays audio file (.mp3)
+// function playAudio() {
+// 	var audio = new Audio('./assets/media/themeSongSmall.mp3');
+// 	audio.play();
+// }
+
+// Change the view from the first screen to the second screen
+function changeView() {
+	$('#firstScreen').empty();
+	$('#secondScreen').show();
+}
+
+$(document).on('click', 'img', function() {
+	// Stores the enemy the user has clicked on in the enemy variable and removes it from the characterArray
+	if (playerSelected && !EnemySelected && this.id != player.name) {
+		for (var j = 0; j < characterArray.length; j++) {
+			if (characterArray[j].name == this.id) {
+				enemy = characterArray[j]; // sets enemy
+				characterArray.splice(j, 1);
+				EnemySelected = true;
+				$('#msg').html('Click the button to attack!');
+			}
+		}
+		$('#enemyDiv').append(this); // appends the selected enemy to the div
+		$('#enemyDiv').append(`<p>${enemy.name}</p>`);
+		$('#enemyHealthDiv').append('HP: ' + enemy.healthPoints);
+	}
+	// Stores the character the user has clicked on in the player variable and removes it from characterArray
+	if (!playerSelected) {
+		for (var i = 0; i < characterArray.length; i++) {
+			if (characterArray[i].name == this.id) {
+				player = characterArray[i]; // sets current player
+				// playAudio(); // starts theme song
+				// $('body').css({
+				// 	'background-image': "url('./assets/images/" + this.id[0] + ".jpg')"
+				// }); // changes the background picture according to the user selection
+				setBaseAttack(player);
+				characterArray.splice(i, 1);
+				playerSelected = true;
+				changeView();
+				$('#msg').html('Pick an enemy to fight!');
+			}
+		}
+		updatePics('#pickPlayerRow', '#enemiesLeft');
+		$('#playerDiv').append(this); // appends the selected player to the div
+		$('#playerDiv').append(`<p>${player.name}</p>`);
+		$('#playerHealthDiv').append('HP: ' + player.healthPoints);
+	}
+});
+
+// The attack button functionality
+$(document).on('click', '#attackBtn', function() {
+	if (playerSelected && EnemySelected) {
+		if (isAlive(player) && isAlive(enemy)) {
+			player.attack(enemy);
+			enemy.counterAttack(player);
+			$('#playerHealthDiv').html('HP: ' + player.healthPoints);
+			$('#enemyHealthDiv').html('HP: ' + enemy.healthPoints);
+			if (!isAlive(enemy)) {
+				$('#enemyHealthDiv').html('DEFETED!');
+				$('#playerHealthDiv').html('Enemy defeated!');
+				$('#msg').html('Pick another enemy to battle...');
+			}
+			if (!isAlive(player)) {
+				$('#playerHealthDiv').html('YOU LOST!');
+				$('#msg').html('Try again...');
+				$('#attackBtn').html('Restart Game');
+				$(document).on('click', '#attackBtn', function() {
+					// restarts game
+					location.reload();
+				});
+			}
+		}
+		if (!isAlive(enemy)) {
+			$('#enemyDiv').children().remove();
+			// $('#enemiesLeft').html('');
+			$('#enemyHealthDiv').html('');
+			EnemySelected = false;
+			if (isWinner()) {
+				$('#secondScreen').hide();
+				$('#globalMsg').show();
+			}
+		}
+	}
+});
+
+// EXECUTE
+$(document).ready(function() {
+	$('#secondScreen').hide();
+	$('#globalMsg').hide();
+	initCharacters();
+	characterCards('#pickPlayerRow');
+});
