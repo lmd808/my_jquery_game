@@ -1,6 +1,8 @@
+// do not under any circumstance click on the VS picture in the second div it will break the game
+
 // this is where my normal code begins
 // my variables
-var baseAttack = 0; // original attack strength
+var charBaselineAttack = 0; // original attack strength
 // here we store the current character being played as an object
 var player;
 // here we store the current enemy selected as an object
@@ -11,6 +13,10 @@ var characterArray = [];
 var playerSelected = false;
 // use to mark if we selected a player character yet or nah
 var enemySelected = false;
+// this is going to beused to take in names to resuse later i'm still workingo n the functionality
+// i fucking did it!
+// halfway there
+var nome = prompt('What is your name?');
 // this function creates a welcome page
 
 // function to create characters (this I barrowed conceptually, but I do know how this function ... functions )
@@ -32,12 +38,26 @@ function Character(name, hp, ap, counter, skill, pic) {
 	this.pic = pic;
 }
 
+function heckel() {
+	$('#divTwo').hide();
+	// var nome = prompt('What is your name?');
+	if (nome) {
+		alert(
+			"I hope you're not too attached to that name because we're just going to refer to you as human Garbage down here!"
+		);
+		alert('Welcome to hell!');
+	} else {
+		alert("You're boring, and won't survive here very long.");
+	}
+	return heckel;
+}
+
 // this function is an expansion of the hcharacter function above
 // healthpoints decrease by the amount of attack power a character has
 Character.prototype.attack = function(Obj) {
 	Obj.healthPoints -= this.attackPower;
 	// this message will display in screen and the attack power and loss of health points
-	$('#msg').html('You attacked ' + Obj.name + 'for ' + this.attackPower + ' damage points.');
+	$('#message').html(`You attacked ${Obj.name} for ${this.attackPower} damage.`);
 	this.increaseAttack();
 };
 
@@ -45,12 +65,12 @@ Character.prototype.attack = function(Obj) {
 function initCharacters() {
 	// these will all follow the object templeate of the character function
 	// new desgnanted a new instance
-	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', 'assets/images/battle_icons/michael.gif');
+	var michael = new Character('Michael Meyers', 300, 18, 5, 'Immortal', 'assets/images/battle_icons/michael.gif');
 	var jason = new Character('Jason Vorhees', 150, 50, 30, 'Loves Mom', 'assets/images/battle_icons/jason.gif');
 	// yo i know this is from scary movie, but i've had this give for like 3000 years and now i have an excuse to use it
 	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Knifey Boi', 'assets/images/battle_icons/ghostface.gif');
-	var freddy = new Character('Freddie Kreuger', 60, 30, 12, 'Ugly MF', 'assets/images/battle_icons/freddy.gif');
-	var pinHead = new Character('PinHead', 350, 25, 17, 'Sadist', 'assets/images/battle_icons/pinhead.gif');
+	var freddy = new Character('Freddie Kreuger', 60, 25, 12, 'Ugly MF', 'assets/images/battle_icons/freddy.gif');
+	var pinHead = new Character('PinHead', 350, 50, 31, 'Sadist', 'assets/images/battle_icons/pinhead.gif');
 	// declared in global variables as an empty array .push adds the characters to the array
 	characterArray.push(michael, jason, ghostFace, freddy, pinHead);
 }
@@ -60,7 +80,8 @@ function initCharacters() {
 // my base attack variable has a value of 0
 // my attack power will vary based on the characters that I create off of the Character function above
 Character.prototype.increaseAttack = function() {
-	this.attackPower += baseAttack;
+	this.attackPower += 25;
+	// this.attackPower += charBaselineAttack;
 };
 
 // this is the 'enemies' attack on the main character
@@ -68,12 +89,14 @@ Character.prototype.increaseAttack = function() {
 Character.prototype.counterAttack = function(Obj) {
 	Obj.healthPoints -= this.counterAttackPower;
 	// this message will display in screen and the counterattack + loss of healthpoints
-	$('#msg').append('<br>' + this.name + ' counter attacked you for ' + this.counterAttackPower + ' damage points.');
+	$('#message').append(
+		'<br>' + this.name + ' counter attacked you for ' + this.counterAttackPower + ' damage points.'
+	);
 };
 
 // this sets the base attacke value based on the character selected
-function setBaseAttack(Obj) {
-	baseAttack = Obj.attackPower;
+function allABoutThatBass(Obj) {
+	charBaselineAttack = Obj.attackPower;
 }
 
 // function to check is the character is alive
@@ -171,8 +194,8 @@ $(document).on('click', 'img', function() {
 				// if enemy selected = true
 				enemySelected = true;
 				// update the message give to say click the button to attack
-				$('#attackbtn').addClass('animated slower infinite heartBeat');
-				$('#msg').html('Click the button to attack');
+				$('#attackbtn').addClass('animated slower infinite pulse');
+				$('#message').html('Click the button to attack');
 			}
 		}
 		// append the selected enemy to the enemyDiv
@@ -187,12 +210,12 @@ $(document).on('click', 'img', function() {
 		for (var i = 0; i < characterArray.length; i++) {
 			if (characterArray[i].name == this.id) {
 				player = characterArray[i]; // sets current player
-				setBaseAttack(player);
+				allABoutThatBass(player);
 				characterArray.splice(i, 1);
 				playerSelected = true;
 				// calls my function to clear the first div
 				switchPlayerScreen();
-				$('#msg').html('Pick an enemy to fight!');
+				$('#message').html('Pick an enemy to fight!');
 			}
 		}
 		// this appends the player character to the PlayerDiv
@@ -203,31 +226,39 @@ $(document).on('click', 'img', function() {
 	}
 });
 
-// The attack button functionality
+// The power of the attack button
 $(document).on('click', '#attackbtn', function() {
+	// var playName = nome;
 	if (playerSelected && enemySelected) {
 		// i feel ike this is really self explanatory, but this is the game play
+		// if player and enemy are alive
 		if (isAlive(player) && isAlive(enemy)) {
+			//play can taccke enmy
 			player.attack(enemy);
+			// enemy counterattacks
 			enemy.counterAttack(player);
+			// hp divs are updated based on the above
 			$('#playerHealthDiv').html('HP: ' + player.healthPoints);
 			$('#enemyHealthDiv').html('HP: ' + enemy.healthPoints);
+			// if an enemy dies this popup will happen
 			if (!isAlive(enemy)) {
-				$('#attackbtn').removeClass('animated slower infinite heartBeat');
+				$('#attackbtn').removeClass('animated slower infinite pulse');
 				$('#enemyHealthDiv').html('DEAD');
 				$('#playerHealthDiv').html('Killer Combo');
-				$('#msg').html('Continue your Slaughter');
+				$('#message').html('Continue your Slaughter');
 			}
+			// if player dies this happens (restart mechanism )
 			if (!isAlive(player)) {
 				// this can only happen if you choose freddy, but it's how I rset the game
 				// you lose
 				$('#playerHealthDiv').html('YOU LOST!');
-				// again
-				$('#msg').html('Try again...');
+				// try again message
+				$('#message').html('Try again...');
 				// attack to restart
 				$('#attackbtn').html('Restart Game');
 				$(document).on('click', '#attackbtn', function() {
 					// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
+					// now i do fuck
 					location.reload();
 				});
 			}
@@ -241,7 +272,7 @@ $(document).on('click', '#attackbtn', function() {
 			enemySelected = false;
 			if (isWinner()) {
 				//message pops up andreadied you for a new round
-				$('#msg').html('Killer Round! Wanna Play Again?');
+				$('#message').html(`Killer Round, ${nome}! Wanna Play Again?`);
 				$('#attackbtn').html('Play Again');
 				$(document).on('click', '#attackbtn', function() {
 					location.reload();
@@ -254,6 +285,7 @@ $(document).on('click', '#attackbtn', function() {
 // EXECUTE
 $(document).ready(function() {
 	// Welcome($('#ultium'));
+	heckel();
 	$('#divTwo').hide();
 	divAnimation();
 	initCharacters();
