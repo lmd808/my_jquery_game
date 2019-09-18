@@ -99,41 +99,58 @@ function isWinner() {
 		return false;
 }
 
-// here down is where i started t struggle
+// here down is where i started to struggle
 
-// Create the character cards onscreen
+// the function below will be what I use to put my cards into my player div
+// this function takes a parapeter of divID (a div's ID)
 function characterCards(divID) {
+	// this clears out what is in the div
 	$(divID).children().remove();
+	// this loops through my array and adds components to my div for the ammount of characters that I have
 	for (var i = 0; i < characterArray.length; i++) {
+		// adds div element to the div
 		$(divID).append('<div />');
-		$(divID + ' div:last-child').addClass('card');
+		// adds a bootstrap card class to the characters
+		$(divID + ' div:last-child').addClass('card animated zoomInRight');
+		// appends an image tag to each of the new divs
 		$(divID + ' div:last-child').append('<img />');
+		//adds the characters name from the array as an id
 		$(divID + ' img:last-child').attr('id', characterArray[i].name);
+		// adds a class of image to control the sizing
 		$(divID + ' img:last-child').attr('class', 'image');
+		// adds a picture of the character to the card from m array (object)
 		$(divID + ' img:last-child').attr('src', characterArray[i].pic);
-		$(divID + ' img:last-child').attr('width', 150);
-		// $(divID + ' img:last-child').addClass('img-thumbnail');
+		// adds my character name via my array of objects
 		$(divID + ' div:last-child').append(characterArray[i].name + '<br>');
+		//adds my characters health points to the card
 		$(divID + ' div:last-child').append('HP: ' + characterArray[i].healthPoints);
-		$(divID + ' div:last-child').append();
 	}
 }
 
-// Update the characters pictures location on the screen (move them between divs)
+// this function is simialr to the one above and depends on it
+// i use this function to move picture from my array of objects to my enemy and player divs
+// takes the parameter of two divs
 function updatePics(fromDivID, toDivID) {
+	//clear the div that we are "moving" from
 	$(fromDivID).children().remove();
+	// loop through the character array and snap some picture
 	for (var i = 0; i < characterArray.length; i++) {
+		// in the div the picutres are "moving" to i'm going to append an image tag
 		$(toDivID).append('<img />');
+		// then add the character name
 		$(toDivID + ' img:last-child').attr('id', characterArray[i].name);
+		//then add their picture
 		$(toDivID + ' img:last-child').attr('src', characterArray[i].pic);
-		$(toDivID + ' img:last-child').addClass('img-thumbnail image');
+		// add class of image
+		$(toDivID + ' img:last-child').addClass('image animated zoomInleft');
 	}
 }
 
-// Change the view from the first screen to the second screen
-function changeView() {
-	$('#firstScreen').empty();
-	$('#secondScreen').show();
+//this function allows me to flop from my first big div to my decond div
+// i literally couldn't figure out a cleaner way to do this because I don't know animation super well so my other versions were rough!
+function switchPlayerScreen() {
+	$('#divOne').empty();
+	$('#divTwo').show();
 }
 
 $(document).on('click', 'img', function() {
@@ -159,7 +176,7 @@ $(document).on('click', 'img', function() {
 				setBaseAttack(player);
 				characterArray.splice(i, 1);
 				playerSelected = true;
-				changeView();
+				switchPlayerScreen();
 				$('#msg').html('Pick an enemy to fight!');
 			}
 		}
@@ -188,7 +205,7 @@ $(document).on('click', '#attackbtn', function() {
 				$('#msg').html('Try again...');
 				$('#attackbtn').html('Restart Game');
 				$(document).on('click', '#attackbtn', function() {
-					// restarts game
+					// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
 					location.reload();
 				});
 			}
@@ -200,6 +217,7 @@ $(document).on('click', '#attackbtn', function() {
 			EnemySelected = false;
 			if (isWinner()) {
 				// restarts game
+				// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
 				location.reload();
 				$('#msg').html('Killer Round! Wanna Play Again?');
 			}
@@ -209,8 +227,7 @@ $(document).on('click', '#attackbtn', function() {
 
 // EXECUTE
 $(document).ready(function() {
-	$('#secondScreen').hide();
-	$('#globalMsg').hide();
+	$('#divTwo').hide();
 	initCharacters();
 	characterCards('#pickPlayerRow');
 });
