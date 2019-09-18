@@ -43,7 +43,6 @@ function heckel() {
 		$('#divOne').hide();
 		$('#divTwo').hide();
 		alert(`Well then, ${nome}...Welcome to hell!`);
-		$('#divOne').show();
 	} else {
 		alert("You're boring, and won't survive here very long.");
 		$('#divOne').show();
@@ -153,7 +152,7 @@ function cards(divID) {
 // this function is simialr to the one above and depends on it
 // i use this function to move picture from my array of objects to my enemy and player divs
 // takes the parameter of two divs
-function updatePics(fromDivID, toDivID) {
+function callPics(fromDivID, toDivID) {
 	//clear the div that we are "moving" from
 	$(fromDivID).children().remove();
 	// loop through the character array and snap some picture
@@ -165,7 +164,7 @@ function updatePics(fromDivID, toDivID) {
 		//then add their picture
 		$(toDivID + ' img:last-child').attr('src', characterArray[i].pic);
 		// add class of image
-		$(toDivID + ' img:last-child').addClass('image animated zoomInLeft card');
+		$(toDivID + ' img:last-child').addClass('image animated rotateIn card');
 	}
 }
 
@@ -174,7 +173,7 @@ function updatePics(fromDivID, toDivID) {
 function switchPlayerScreen() {
 	$('#divOne').empty();
 	$('#divTwo').show();
-	$('#divTwo').children().addClass('animated zoomInRight');
+	$('#divTwo').children().addClass('animated rotateIn');
 	$('#divTwo').children().removeClass('.image:hover');
 }
 
@@ -183,13 +182,13 @@ $(document).on('click', 'img', function() {
 	// if plauer is selected and the enemey is no selected and the enemy is not the character in play
 	if (playerSelected && !enemySelected && this.id != player.name) {
 		// for loop through the good ole character array
-		for (var j = 0; j < characterArray.length; j++) {
+		for (var jiterator = 0; jiterator < characterArray.length; jiterator++) {
 			// if the enemy selected equals their id
-			if (characterArray[j].name == this.id) {
+			if (characterArray[jiterator].name == this.id) {
 				// set the selected character to the enemy variable
-				enemy = characterArray[j];
+				enemy = characterArray[jiterator];
 				// rip it out of the array
-				characterArray.splice(j, 1);
+				characterArray.splice(jiterator, 1);
 				// if enemy selected = true
 				enemySelected = true;
 				// update the message give to say click the button to attack
@@ -218,7 +217,7 @@ $(document).on('click', 'img', function() {
 			}
 		}
 		// this appends the player character to the PlayerDiv
-		updatePics('#pickPlayerRow', '#enemiesLeft');
+		callPics('#pickPlayerRow', '#enemiesLeft');
 		$('#playerDiv').append(this); // appends the selected player to the div
 		$('#playerDiv').append(`<p>${player.name}</p>`);
 		$('#playerHealthDiv').append(`HP: ${player.healthPoints}`);
@@ -256,7 +255,7 @@ $(document).on('click', '#attackbtn', function() {
 				// attack to restart
 				$('#attackbtn').html('Restart Game');
 				$(document).on('click', '#attackbtn', function() {
-					// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
+					// this is the greatest thing ever because it just reloads the document.. i see no downsides to this yet
 					// now i do fuck
 					location.reload();
 				});
