@@ -37,15 +37,12 @@ function Character(name, hp, ap, counter, skill, pic) {
 	// picture of character
 	this.pic = pic;
 }
-
+// this is my heckel function
 function heckel() {
 	if (nome) {
 		$('#divOne').hide();
 		$('#divTwo').hide();
-		alert(
-			"I hope you're not too attached to that name because we're just going to refer to you as human Garbage down here!"
-		);
-		alert('Welcome to hell!');
+		alert(`Well then, ${nome}...Welcome to hell!`);
 		$('#divOne').show();
 	} else {
 		alert("You're boring, and won't survive here very long.");
