@@ -1,3 +1,4 @@
+// this is where my normal code begins
 // my variables
 var baseAttack = 0; // original attack strength
 // here we store the current character being played as an object
@@ -10,17 +11,24 @@ var characterArray = [];
 var playerSelected = false;
 // use to mark if we selected a player character yet or nah
 var enemySelected = false;
+// this function creates a welcome page
 
 // function to create characters (this I barrowed conceptually, but I do know how this function ... functions )
 // character creation template
 // we're using this function to create objects
 // later they're going to be put into my characterArray
 function Character(name, hp, ap, counter, skill, pic) {
+	//name of character
 	this.name = name;
+	// health points
 	this.healthPoints = hp;
+	// attack power
 	this.attackPower = ap;
+	// counter atack power
 	this.counterAttackPower = counter;
+	// skills
 	this.skill = skill;
+	// picture of character
 	this.pic = pic;
 }
 
@@ -38,25 +46,12 @@ function initCharacters() {
 	// these will all follow the object templeate of the character function
 	// new desgnanted a new instance
 	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', 'assets/images/battle_icons/michael.jpg');
-	var jason = new Character('Jason Vorhees', 150, 50, 30, "Just won't die, ", 'assets/images/battle_icons/jason.jpg');
-	var ghostFace = new Character(
-		'Ghostface',
-		200,
-		15,
-		2,
-		'Has knife and will just keep walking',
-		'assets/images/battle_icons/ghostface.jpg'
-	);
-	var freddy = new Character(
-		'Freddie Kreuger',
-		60,
-		30,
-		12,
-		'Enters your Dreams just for Fun',
-		'assets/images/battle_icons/freddy.jpg'
-	);
+	var jason = new Character('Jason Vorhees', 150, 50, 30, 'Loves Mom', 'assets/images/battle_icons/jason.jpg');
+	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Knifey Boi', 'assets/images/battle_icons/ghostface.jpg');
+	var freddy = new Character('Freddie Kreuger', 60, 30, 12, 'Ugly MF', 'assets/images/battle_icons/freddy.jpg');
+	var pinHead = new Character('PinHead', 350, 25, 17, 'Sadist', 'assets/images/battle_icons/pinhead.jpg');
 	// declared in global variables as an empty array .push adds the characters to the array
-	characterArray.push(michael, jason, ghostFace, freddy);
+	characterArray.push(michael, jason, ghostFace, freddy, pinHead);
 }
 
 // Increase the attack strength (this attack strength + original attack strength)
@@ -100,18 +95,21 @@ function isWinner() {
 }
 
 // here down is where i started to struggle
-
+// this is a quick patch function i made to add in animations to my entire div in a way i knew for sure would work
+function divAnimation() {
+	$('#divOne').children().addClass('animated slideInDown');
+}
 // the function below will be what I use to put my cards into my player div
 // this function takes a parapeter of divID (a div's ID)
-function characterCards(divID) {
+function cards(divID) {
 	// this clears out what is in the div
 	$(divID).children().remove();
 	// this loops through my array and adds components to my div for the ammount of characters that I have
 	for (var i = 0; i < characterArray.length; i++) {
 		// adds div element to the div
 		$(divID).append('<div />');
-		// adds a bootstrap card class to the characters
-		$(divID + ' div:last-child').addClass('card animated zoomInRight');
+		// adds a bootstrap cards class to the characters
+		$(divID + ' div:last-child').addClass('card animated bounce delay-2s');
 		// appends an image tag to each of the new divs
 		$(divID + ' div:last-child').append('<img />');
 		//adds the characters name from the array as an id
@@ -123,7 +121,9 @@ function characterCards(divID) {
 		// adds my character name via my array of objects
 		$(divID + ' div:last-child').append(characterArray[i].name + '<br>');
 		//adds my characters health points to the card
-		$(divID + ' div:last-child').append('HP: ' + characterArray[i].healthPoints);
+		$(divID + ' div:last-child').append('HP: ' + characterArray[i].healthPoints + '<br>');
+		// adds my character's skill
+		$(divID + ' div:last-child').append('Skill: ' + characterArray[i].skill);
 	}
 }
 
@@ -151,6 +151,8 @@ function updatePics(fromDivID, toDivID) {
 function switchPlayerScreen() {
 	$('#divOne').empty();
 	$('#divTwo').show();
+	$('#divTwo').children().addClass('animated zoomInRight');
+	$('#divTwo').children().removeClass('.image:hover');
 }
 
 $(document).on('click', 'img', function() {
@@ -186,20 +188,23 @@ $(document).on('click', 'img', function() {
 				setBaseAttack(player);
 				characterArray.splice(i, 1);
 				playerSelected = true;
+				// calls my function to clear the first div
 				switchPlayerScreen();
 				$('#msg').html('Pick an enemy to fight!');
 			}
 		}
+		// this appends the player character to the PlayerDiv
 		updatePics('#pickPlayerRow', '#enemiesLeft');
 		$('#playerDiv').append(this); // appends the selected player to the div
 		$('#playerDiv').append(`<p>${player.name}</p>`);
-		$('#playerHealthDiv').append('HP: ' + player.healthPoints);
+		$('#playerHealthDiv').append(`HP: ${player.healthPoints}`);
 	}
 });
 
 // The attack button functionality
 $(document).on('click', '#attackbtn', function() {
 	if (playerSelected && enemySelected) {
+		// i feel ike this is really self explanatory, but this is the game play
 		if (isAlive(player) && isAlive(enemy)) {
 			player.attack(enemy);
 			enemy.counterAttack(player);
@@ -211,8 +216,12 @@ $(document).on('click', '#attackbtn', function() {
 				$('#msg').html('Pick another enemy to battle...');
 			}
 			if (!isAlive(player)) {
+				// this can only happen if you choose freddy, but it's how I rset the game
+				// you lose
 				$('#playerHealthDiv').html('YOU LOST!');
+				// again
 				$('#msg').html('Try again...');
+				// attack to restart
 				$('#attackbtn').html('Restart Game');
 				$(document).on('click', '#attackbtn', function() {
 					// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
@@ -220,15 +229,18 @@ $(document).on('click', '#attackbtn', function() {
 				});
 			}
 		}
+		// if enemy is not alive
 		if (!isAlive(enemy)) {
+			// clear that div
 			$('#enemyDiv').children().remove();
 			// $('#enemiesLeft').html('');
 			$('#enemyHealthDiv').html('');
+			// no more enemies to select
 			enemySelected = false;
 			if (isWinner()) {
 				// restarts game
-				// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
 				location.reload();
+				//message pops up andreadied you for a new round
 				$('#msg').html('Killer Round! Wanna Play Again?');
 			}
 		}
@@ -237,7 +249,9 @@ $(document).on('click', '#attackbtn', function() {
 
 // EXECUTE
 $(document).ready(function() {
+	// Welcome($('#ultium'));
 	$('#divTwo').hide();
+	divAnimation();
 	initCharacters();
-	characterCards('#pickPlayerRow');
+	cards('#pickPlayerRow');
 });
