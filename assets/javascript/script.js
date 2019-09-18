@@ -9,7 +9,7 @@ var characterArray = [];
 // i'm going to use this to mark if we selected a player character yet or nah
 var playerSelected = false;
 // use to mark if we selected a player character yet or nah
-var EnemySelected = false;
+var enemySelected = false;
 
 // function to create characters (this I barrowed conceptually, but I do know how this function ... functions )
 // character creation template
@@ -142,7 +142,7 @@ function updatePics(fromDivID, toDivID) {
 		//then add their picture
 		$(toDivID + ' img:last-child').attr('src', characterArray[i].pic);
 		// add class of image
-		$(toDivID + ' img:last-child').addClass('image animated zoomInleft');
+		$(toDivID + ' img:last-child').addClass('image animated zoomInLeft card');
 	}
 }
 
@@ -155,18 +155,28 @@ function switchPlayerScreen() {
 
 $(document).on('click', 'img', function() {
 	// Stores the enemy the user has clicked on in the enemy variable and removes it from the characterArray
-	if (playerSelected && !EnemySelected && this.id != player.name) {
+	// if plauer is selected and the enemey is no selected and the enemy is not the character in play
+	if (playerSelected && !enemySelected && this.id != player.name) {
+		// for loop through the good ole character array
 		for (var j = 0; j < characterArray.length; j++) {
+			// if the enemy selected equals their id
 			if (characterArray[j].name == this.id) {
+				// set the selected character to the enemy variable
 				enemy = characterArray[j]; // sets enemy
+				// rip it out of the array
 				characterArray.splice(j, 1);
-				EnemySelected = true;
+				// if enemy selected = true
+				enemySelected = true;
+				// update the message give to say click the button to attack
 				$('#msg').html('Click the button to attack!');
 			}
 		}
-		$('#enemyDiv').append(this); // appends the selected enemy to the div
+		// append the selected enemy to the enemyDiv
+		$('#enemyDiv').append(this);
+		// add the enemies name
 		$('#enemyDiv').append(`<p>${enemy.name}</p>`);
-		$('#enemyHealthDiv').append('HP: ' + enemy.healthPoints);
+		// ass the health points
+		$('#enemyHealthDiv').append(`HP: ${enemy.healthPoints}`);
 	}
 	// Stores the character the user has clicked on in the player variable and removes it from characterArray
 	if (!playerSelected) {
@@ -189,7 +199,7 @@ $(document).on('click', 'img', function() {
 
 // The attack button functionality
 $(document).on('click', '#attackbtn', function() {
-	if (playerSelected && EnemySelected) {
+	if (playerSelected && enemySelected) {
 		if (isAlive(player) && isAlive(enemy)) {
 			player.attack(enemy);
 			enemy.counterAttack(player);
@@ -214,7 +224,7 @@ $(document).on('click', '#attackbtn', function() {
 			$('#enemyDiv').children().remove();
 			// $('#enemiesLeft').html('');
 			$('#enemyHealthDiv').html('');
-			EnemySelected = false;
+			enemySelected = false;
 			if (isWinner()) {
 				// restarts game
 				// this is the greatest thing ever ecause it just reloads the document.. i see no downsides to this yet
