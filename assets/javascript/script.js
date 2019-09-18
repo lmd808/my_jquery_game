@@ -43,15 +43,15 @@ function heckel() {
 		// $('#divOne').hide();
 		// $('#divTwo').hide();
 		alert(`Well then, ${nome}...Welcome to hell!`);
+		$('#divOne').show();
 	} else {
 		alert("You're boring, and won't survive here very long.");
 		$('#divOne').show();
 	}
-	return heckel;
 }
 
 // this function is an expansion of the hcharacter function above
-// healthpoints decrease by the amount of attack power a character has
+// healthpoints decredase by the amount of attack power a character has
 Character.prototype.attack = function(Obj) {
 	Obj.healthPoints -= this.attackPower;
 	// this message will display in screen and the attack power and loss of health points
