@@ -176,6 +176,8 @@ function switchPlayerScreen() {
 	$('#divTwo').children().addClass('animated rotateIn');
 	$('#divTwo').children().removeClass('.image:hover');
 }
+// this will occure after the player is selected (params below)
+// if will allow the images moved about to be clicked on and fall into my enemy div
 
 $(document).on('click', 'img', function() {
 	// Stores the enemy the user has clicked on in the enemy variable and removes it from the characterArray
@@ -183,9 +185,9 @@ $(document).on('click', 'img', function() {
 	if (playerSelected && !enemySelected && this.id != player.name) {
 		// for loop through the good ole character array
 		for (var jiterator = 0; jiterator < characterArray.length; jiterator++) {
-			// if the enemy selected equals their id
+			// if the enemy selected equals the their own id
 			if (characterArray[jiterator].name == this.id) {
-				// set the selected character to the enemy variable
+				// set the selected character to the enemy varia
 				enemy = characterArray[jiterator];
 				// rip it out of the array
 				characterArray.splice(jiterator, 1);
