@@ -20,7 +20,9 @@ body {
 	background-color: transparent;
 	border: 2px solid black;
 	padding: 10px;
-	/* margin-left: 100px; */
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-left: 75px;
 	margin-top: 30px;
 	margin-bottom: 10px;
 	border-radius: 180px;
@@ -46,6 +48,9 @@ body {
 
 #msg {
 	text-align: center;
+	padding-top: 20px;
+	width: 300px;
+	margin-right: 20px;
 }
 
 #pickText {
@@ -60,5 +65,5 @@ body {
 	height: 220px;
 }
 #enemyHealthDiv {
-	margin-right: -30px;
+	margin-left: 4px;
 }

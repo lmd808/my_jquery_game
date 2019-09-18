@@ -45,11 +45,12 @@ Character.prototype.attack = function(Obj) {
 function initCharacters() {
 	// these will all follow the object templeate of the character function
 	// new desgnanted a new instance
-	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', 'assets/images/battle_icons/michael.jpg');
-	var jason = new Character('Jason Vorhees', 150, 50, 30, 'Loves Mom', 'assets/images/battle_icons/jason.jpg');
-	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Knifey Boi', 'assets/images/battle_icons/ghostface.jpg');
-	var freddy = new Character('Freddie Kreuger', 60, 30, 12, 'Ugly MF', 'assets/images/battle_icons/freddy.jpg');
-	var pinHead = new Character('PinHead', 350, 25, 17, 'Sadist', 'assets/images/battle_icons/pinhead.jpg');
+	var michael = new Character('Michael Meyers', 300, 10, 5, 'Immortal', 'assets/images/battle_icons/michael.gif');
+	var jason = new Character('Jason Vorhees', 150, 50, 30, 'Loves Mom', 'assets/images/battle_icons/jason.gif');
+	// yo i know this is from scary movie, but i've had this give for like 3000 years and now i have an excuse to use it
+	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Knifey Boi', 'assets/images/battle_icons/ghostface.gif');
+	var freddy = new Character('Freddie Kreuger', 60, 30, 12, 'Ugly MF', 'assets/images/battle_icons/freddy.gif');
+	var pinHead = new Character('PinHead', 350, 25, 17, 'Sadist', 'assets/images/battle_icons/pinhead.gif');
 	// declared in global variables as an empty array .push adds the characters to the array
 	characterArray.push(michael, jason, ghostFace, freddy, pinHead);
 }
@@ -109,7 +110,7 @@ function cards(divID) {
 		// adds div element to the div
 		$(divID).append('<div />');
 		// adds a bootstrap cards class to the characters
-		$(divID + ' div:last-child').addClass('card animated bounce delay-2s');
+		$(divID + ' div:last-child').addClass('card animated slower bounce delay-1s');
 		// appends an image tag to each of the new divs
 		$(divID + ' div:last-child').append('<img />');
 		//adds the characters name from the array as an id
@@ -164,13 +165,14 @@ $(document).on('click', 'img', function() {
 			// if the enemy selected equals their id
 			if (characterArray[j].name == this.id) {
 				// set the selected character to the enemy variable
-				enemy = characterArray[j]; // sets enemy
+				enemy = characterArray[j];
 				// rip it out of the array
 				characterArray.splice(j, 1);
 				// if enemy selected = true
 				enemySelected = true;
 				// update the message give to say click the button to attack
-				$('#msg').html('Click the button to attack!');
+				$('#attackbtn').addClass('animated slower infinite heartBeat');
+				$('#msg').html('Click the button to attack');
 			}
 		}
 		// append the selected enemy to the enemyDiv
@@ -211,9 +213,10 @@ $(document).on('click', '#attackbtn', function() {
 			$('#playerHealthDiv').html('HP: ' + player.healthPoints);
 			$('#enemyHealthDiv').html('HP: ' + enemy.healthPoints);
 			if (!isAlive(enemy)) {
-				$('#enemyHealthDiv').html('DEFETED!');
-				$('#playerHealthDiv').html('Enemy defeated!');
-				$('#msg').html('Pick another enemy to battle...');
+				$('#attackbtn').removeClass('animated slower infinite heartBeat');
+				$('#enemyHealthDiv').html('DEAD');
+				$('#playerHealthDiv').html('Killer Combo');
+				$('#msg').html('Continue your Slaughter');
 			}
 			if (!isAlive(player)) {
 				// this can only happen if you choose freddy, but it's how I rset the game
@@ -233,15 +236,16 @@ $(document).on('click', '#attackbtn', function() {
 		if (!isAlive(enemy)) {
 			// clear that div
 			$('#enemyDiv').children().remove();
-			// $('#enemiesLeft').html('');
 			$('#enemyHealthDiv').html('');
 			// no more enemies to select
 			enemySelected = false;
 			if (isWinner()) {
-				// restarts game
-				location.reload();
 				//message pops up andreadied you for a new round
 				$('#msg').html('Killer Round! Wanna Play Again?');
+				$('#attackbtn').html('Play Again');
+				$(document).on('click', '#attackbtn', function() {
+					location.reload();
+				});
 			}
 		}
 	}
