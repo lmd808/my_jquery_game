@@ -112,7 +112,7 @@ function characterCards(divID) {
 		$(divID + ' img:last-child').attr('class', 'image');
 		$(divID + ' img:last-child').attr('src', characterArray[i].pic);
 		$(divID + ' img:last-child').attr('width', 150);
-		$(divID + ' img:last-child').addClass('img-thumbnail');
+		// $(divID + ' img:last-child').addClass('img-thumbnail');
 		$(divID + ' div:last-child').append(characterArray[i].name + '<br>');
 		$(divID + ' div:last-child').append('HP: ' + characterArray[i].healthPoints);
 		$(divID + ' div:last-child').append();
@@ -129,12 +129,6 @@ function updatePics(fromDivID, toDivID) {
 		$(toDivID + ' img:last-child').addClass('img-thumbnail image');
 	}
 }
-
-// plays audio file (.mp3)
-// function playAudio() {
-// 	var audio = new Audio('./assets/media/themeSongSmall.mp3');
-// 	audio.play();
-// }
 
 // Change the view from the first screen to the second screen
 function changeView() {
@@ -162,10 +156,6 @@ $(document).on('click', 'img', function() {
 		for (var i = 0; i < characterArray.length; i++) {
 			if (characterArray[i].name == this.id) {
 				player = characterArray[i]; // sets current player
-				// playAudio(); // starts theme song
-				// $('body').css({
-				// 	'background-image': "url('./assets/images/" + this.id[0] + ".jpg')"
-				// }); // changes the background picture according to the user selection
 				setBaseAttack(player);
 				characterArray.splice(i, 1);
 				playerSelected = true;
@@ -181,7 +171,7 @@ $(document).on('click', 'img', function() {
 });
 
 // The attack button functionality
-$(document).on('click', '#attackBtn', function() {
+$(document).on('click', '#attackbtn', function() {
 	if (playerSelected && EnemySelected) {
 		if (isAlive(player) && isAlive(enemy)) {
 			player.attack(enemy);
@@ -196,8 +186,8 @@ $(document).on('click', '#attackBtn', function() {
 			if (!isAlive(player)) {
 				$('#playerHealthDiv').html('YOU LOST!');
 				$('#msg').html('Try again...');
-				$('#attackBtn').html('Restart Game');
-				$(document).on('click', '#attackBtn', function() {
+				$('#attackbtn').html('Restart Game');
+				$(document).on('click', '#attackbtn', function() {
 					// restarts game
 					location.reload();
 				});
@@ -209,8 +199,9 @@ $(document).on('click', '#attackBtn', function() {
 			$('#enemyHealthDiv').html('');
 			EnemySelected = false;
 			if (isWinner()) {
-				$('#secondScreen').hide();
-				$('#globalMsg').show();
+				// restarts game
+				location.reload();
+				$('#msg').html('Killer Round! Wanna Play Again?');
 			}
 		}
 	}

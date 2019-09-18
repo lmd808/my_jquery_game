@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lexend+Zetta&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
     <title>Serial Slashers the Game</title>
@@ -18,7 +19,7 @@
         <h1 id = "myHeading">Serial Slashers</h1> 
       </div>
       <!-- this is going to be the initial row where my characters are displayed -->
-      <div class="row justify-content-center" id="pickPlayerRow">
+      <div class="row justify-content-center bounce" id="pickPlayerRow">
          
       </div>
       <div class="row justify-content-center">PICK A PLAYER TO BEGIN THE GAME</div>
@@ -34,20 +35,28 @@
       <div class="row justify-content-center">
         <div class="col-sm-4 justify-content-center" >
           <div class="row">
-            <div class="col" id="playerDiv"></div>
+            <div class="col-sm justify-content-center" id="playerDiv"></div>
           </div>
           <div class="row">
-            <div class="col" id="playerHealthDiv"></div>
+            <div class="col-sm justify-content-center" id="playerHealthDiv"></div>
           </div>
         </div>
         <div class="col-sm-4 justify-content-center">
-          <button id="attackBtn" type="button"> 
-            <img src="assets/images/battle_icons/vs.jpg" width="200px" height="200px" alt="vs">
-          </button>
+           <div class="row">
+             <div class="col-sm justify-content-center">
+                <img src="assets/images/battle_icons/vs.jpg" width="300px" height="200px" alt="vs">
+             </div>
+           </div>
+           <div class="row">
+             <div class="col-sm justify-content-center">
+                <button id="attackbtn" type="button" class="bounce">Attack</button>
+             </div>
+           </div> 
+            
         </div>
         <div class="col-sm-4 justify-content-center">
           <div class="row">
-            <div class="col" id="enemyDiv"></div>
+            <div class="col-sm justify-content-center" id="enemyDiv"></div>
           </div>
           <div class="row" id="enemyHealthDiv"></div>
         </div>
@@ -55,7 +64,9 @@
 
        <!-- this row is going to be where I keep Score Information -->
       <div class = "row justify-content-center" >
-        <h2 id="msg"></h2>
+        <div class="col justify-content-center" id="msg">
+          
+        </div>
       </div>
 
     </div>
