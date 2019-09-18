@@ -40,8 +40,8 @@ function Character(name, hp, ap, counter, skill, pic) {
 // this is my heckel function
 function heckel() {
 	if (nome) {
-		$('#divOne').hide();
-		$('#divTwo').hide();
+		// $('#divOne').hide();
+		// $('#divTwo').hide();
 		alert(`Well then, ${nome}...Welcome to hell!`);
 	} else {
 		alert("You're boring, and won't survive here very long.");
