@@ -52,7 +52,6 @@ function initCharacters() {
 	// new desgnanted a new instance
 	var michael = new Character('Michael Meyers', 300, 18, 5, 'Immortal', 'assets/images/battle_icons/michael.gif');
 	var jason = new Character('Jason Vorhees', 150, 50, 30, 'Loves Mom', 'assets/images/battle_icons/jason.gif');
-	// yo i know this is from scary movie, but i've had this give for like 3000 years and now i have an excuse to use it
 	var ghostFace = new Character('Ghostface', 200, 15, 2, 'Knifey Boi', 'assets/images/battle_icons/ghostface.gif');
 	var freddy = new Character('Freddie Kreuger', 60, 25, 12, 'Ugly MF', 'assets/images/battle_icons/freddy.gif');
 	var pinHead = new Character('PinHead', 350, 50, 31, 'Sadist', 'assets/images/battle_icons/pinhead.gif');
@@ -244,8 +243,6 @@ $(document).on('click', '#attackbtn', function() {
 				// attack to restart
 				$('#attackbtn').html('Restart Game');
 				$(document).on('click', '#attackbtn', function() {
-					// this is the greatest thing ever because it just reloads the document.. i see no downsides to this yet
-					// now i do fuck
 					location.reload();
 				});
 			}
