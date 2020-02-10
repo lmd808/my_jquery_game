@@ -14,12 +14,11 @@ var playerSelected = false;
 // use to mark if we selected a player character yet or nah
 var enemySelected = false;
 // this is going to beused to take in names to resuse later i'm still workingo n the functionality
-// i fucking did it!
 // halfway there
 var nome = prompt('What is your name?');
 // this function creates a welcome page
 
-// function to create characters (this I barrowed conceptually, but I do know how this function ... functions )
+
 // character creation template
 // we're using this function to create objects
 // later they're going to be put into my characterArray
@@ -36,18 +35,6 @@ function Character(name, hp, ap, counter, skill, pic) {
 	this.skill = skill;
 	// picture of character
 	this.pic = pic;
-}
-// this is my heckel function
-function heckel() {
-	if (nome) {
-		// $('#divOne').hide();
-		// $('#divTwo').hide();
-		alert(`Well then, ${nome}...Welcome to hell!`);
-		$('#divOne').show();
-	} else {
-		alert("You're boring, and won't survive here very long.");
-		$('#divOne').show();
-	}
 }
 
 // this function is an expansion of the hcharacter function above
@@ -285,7 +272,6 @@ $(document).on('click', '#attackbtn', function() {
 // EXECUTE
 $(document).ready(function() {
 	// Welcome($('#ultium'));
-	heckel();
 	$('#divTwo').hide();
 	divAnimation();
 	initCharacters();
