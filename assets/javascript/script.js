@@ -13,11 +13,6 @@ var characterArray = [];
 var playerSelected = false;
 // use to mark if we selected a player character yet or nah
 var enemySelected = false;
-// this is going to beused to take in names to resuse later i'm still workingo n the functionality
-// halfway there
-var nome = prompt('What is your name?');
-// this function creates a welcome page
-
 
 // character creation template
 // we're using this function to create objects
@@ -214,7 +209,6 @@ $(document).on('click', 'img', function() {
 
 // The power of the attack button
 $(document).on('click', '#attackbtn', function() {
-	// var playName = nome;
 	if (playerSelected && enemySelected) {
 		// i feel ike this is really self explanatory, but this is the game play
 		// if player and enemy are alive
@@ -256,7 +250,7 @@ $(document).on('click', '#attackbtn', function() {
 			enemySelected = false;
 			if (isWinner()) {
 				//message pops up andreadied you for a new round
-				$('#message').html(`Killer Round, ${nome}! Wanna Play Again?`);
+				$('#message').html(`Killer Round, ! Wanna Play Again?`);
 				$('#attackbtn').html('Play Again');
 				$(document).on('click', '#attackbtn', function() {
 					location.reload();
