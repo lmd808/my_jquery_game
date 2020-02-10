@@ -1,23 +1,31 @@
-# my_jquery_game
-This is my Jquery game 
-#Technologies
-bootstrap, animate.css (still learning how to use it), javascript, jquery, html, css, css reset sheet 
+# Serial Slashers: The Game
+### *RP as your favorite slashers stars in this fun application*
 
-#about the file  
-file oiginates with index.html for viewing in browser 
-page one allows you to see character stats and images in card pulled from bootstrap, but added via javascript 
-it was acrually easier to add them via javascript because I didn't have to create a card for every single character (yay for loops)
+## Local Usage
+* Clone this repo to your computer
+* Open from index.html file
+* Enjoy!
+## Technologies: 
+* [Javascript](https://www.javascript.com/) - The scripting language used to manipulate the DOM. 
+* [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - Mark up language used for structuring pages. 
+* [BootStrap](https://getbootstrap.com/) - popular framework for building responsive websites
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) -is a stylesheet language used to describe the presentation of a document written in HTML or XML
+* [Animate.css](https://github.com/daneden/animate.css) - animate.css is an animation library
 
-#gameplay
-pick a character while divOne is open. Once a payer selects a character divOne empties and divTwo is shown. Div two is where the actual game play occurs. you can battle other characters the lonly way to actually lose is if you select freddy kreuger. that is designedo n purpose because I never liked him 
+## Links: 
+* Repo: [GitHub Repo](https://github.com/lmd808/my_jquery_game/).
+* Deployed: [GitHub Pages](https://lmd808.github.io/my_jquery_game/).
 
-#there is no formal reset button 
-i came accross location.reset() and honestly I think it's fantastic and for this type of game it makes total sense because there a rounds in the game, but because my page is 'twoish' pages it was hard for me to figureo ut a way to reset the page and log won rounds without change the entire game play at reload 
+## Demo:  
 
-#things I'd like to add
-music-- i saw alot of other people put in music and it would be cool
-I'd like to get different sounds to play for ever character 
-I'd like to do more in terms of animation because I think they make the page look alot livelier and more like a game I'd like to play 
+![Demo1](./images/demo1.gif)
+![Demo2](./images/demo2.gif)
+![Demo3](./images/demo3.gif)
+![Demo4](./images/demo4.gif)
+
+## Challenges: 
+* This whole project was a challenge, but I learned quite a bit and really pushed myself to make something interactive and fun. 
 
 
-
+## Creator: 
+Laura DiTommaso [GitHub](https://github.com/lmd808)
